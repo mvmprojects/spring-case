@@ -1,7 +1,7 @@
 package com.example.demo.controllers.dtos;
 
 public class TrackDto {
-
+    // not implemented; to be used in controllers for sending to and receiving from frontend
     private long id;
     private String title;
     private int duration;

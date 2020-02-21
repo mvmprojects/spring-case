@@ -11,7 +11,6 @@ public class TrackEntity {
     @Column(name = "TRACK_ID")
     private Long id;
 
-    @NotNull
     @Column(name = "NAME")
     private String name;
 
@@ -26,8 +25,9 @@ public class TrackEntity {
 
     }
 
-    public TrackEntity(String name, int duration) {
+    public TrackEntity(String name, AlbumEntity album, int duration) {
         this.name = name;
+        this.album = album;
         this.duration = duration;
     }
 
@@ -53,5 +53,9 @@ public class TrackEntity {
 
     public AlbumEntity getAlbum() {
         return album;
+    }
+
+    public void setAlbum(AlbumEntity album) {
+        this.album = album;
     }
 }

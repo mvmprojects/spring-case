@@ -3,6 +3,7 @@ package com.example.demo.services;
 import com.example.demo.repositories.TrackRepository;
 import com.example.demo.repositories.entities.AlbumEntity;
 import com.example.demo.repositories.entities.TrackEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,15 +12,18 @@ import java.util.Optional;
 @Service
 public class TrackService {
 
+    @Autowired
     private final TrackRepository trackRepository;
 
     public TrackService(TrackRepository trackRepository) {
         this.trackRepository = trackRepository;
     }
 
-    public TrackEntity save(TrackEntity trackEntity) {
-        return (TrackEntity) trackRepository.save(trackEntity);
+    public TrackEntity create(TrackEntity trackEntity) {
+        return trackRepository.save(trackEntity);
     }
+
+    public List<TrackEntity> findAll() { return trackRepository.findAll(); }
 
     public Optional<TrackEntity> findById(long id) {
         return trackRepository.findById(id);
@@ -30,7 +34,7 @@ public class TrackService {
     }
 
     public TrackEntity update(TrackEntity trackEntity) {
-        return (TrackEntity) trackRepository.save(trackEntity);
+        return trackRepository.save(trackEntity);
     }
 
     public void delete(Long id) {

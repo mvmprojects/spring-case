@@ -12,7 +12,6 @@ public class AlbumEntity {
     @Column(name = "ALBUM_ID")
     private Long id;
 
-    @NotNull
     @Column(name = "NAME")
     private String name;
 
@@ -26,12 +25,18 @@ public class AlbumEntity {
     public AlbumEntity() {
     }
 
-    public AlbumEntity(String name) {
+    public AlbumEntity(String name, ArtistEntity artist, List<TrackEntity> trackEntityList) {
         this.name = name;
+        this.artist = artist;
+        this.trackEntityList = trackEntityList;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -48,5 +53,13 @@ public class AlbumEntity {
 
     public void setTrackEntityList(List<TrackEntity> trackEntityList) {
         this.trackEntityList = trackEntityList;
+    }
+
+    public ArtistEntity getArtist() {
+        return artist;
+    }
+
+    public void setArtist(ArtistEntity artist) {
+        this.artist = artist;
     }
 }

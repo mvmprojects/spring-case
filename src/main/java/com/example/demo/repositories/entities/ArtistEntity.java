@@ -16,9 +16,6 @@ public class ArtistEntity {
     @Column(name = "NAME")
     private String name;
 
-    @OneToMany(mappedBy = "id")
-    private List<AlbumEntity> albumEntityList;
-
     public ArtistEntity() {
     }
 
@@ -36,13 +33,5 @@ public class ArtistEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<AlbumEntity> getAlbumEntityList() {
-        return albumEntityList;
-    }
-
-    public void setAlbumEntityList(List<AlbumEntity> albumEntityList) {
-        this.albumEntityList = albumEntityList;
     }
 }

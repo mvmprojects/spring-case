@@ -25,7 +25,7 @@ public class TrackController {
 
     @PostMapping
     public ResponseEntity<TrackEntity> create(TrackEntity trackEntity) {
-        TrackEntity createdTrack = trackService.save(trackEntity);
+        TrackEntity createdTrack = trackService.create(trackEntity);
         return new ResponseEntity<>(createdTrack, HttpStatus.CREATED);
     }
 

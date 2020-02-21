@@ -13,6 +13,8 @@ public class ArtistService {
     @Autowired
     private ArtistRepository artistRepository;
 
+    public ArtistEntity create(ArtistEntity artistEntity) { return artistRepository.save(artistEntity); }
+
     public List<ArtistEntity> findAll() {
         return artistRepository.findAll();
     }
