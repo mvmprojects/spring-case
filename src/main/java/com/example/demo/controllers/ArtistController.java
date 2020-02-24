@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.controllers.dtos.ArtistDto;
 import com.example.demo.repositories.entities.ArtistEntity;
 import com.example.demo.services.ArtistService;
 import org.modelmapper.ModelMapper;
@@ -30,14 +31,15 @@ public class ArtistController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ArtistEntity>> read() { return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED); }
+    public ResponseEntity<List<ArtistDto>> read() { return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED); }
 
     @GetMapping("/byname")
-    public ResponseEntity<ArtistEntity> findByName(String name) {
+    public ResponseEntity<ArtistDto> findByName(String name) {
         ArtistEntity artistEntity = artistService.findByName(name);
-        // should use a mapper at this point so entity object can be converted to dto object before returning
         if (artistEntity != null) {
-            return new ResponseEntity<>(artistEntity, HttpStatus.OK);
+            // use mapper to convert to dto
+            ArtistDto artistDto = modelMapper.map(artistEntity, ArtistDto.class);
+            return new ResponseEntity<>(artistDto, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
