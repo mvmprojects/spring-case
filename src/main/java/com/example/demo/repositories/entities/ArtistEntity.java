@@ -2,7 +2,6 @@ package com.example.demo.repositories.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Entity
 public class ArtistEntity {
@@ -25,6 +24,10 @@ public class ArtistEntity {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

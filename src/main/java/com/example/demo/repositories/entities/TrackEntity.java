@@ -1,7 +1,6 @@
 package com.example.demo.repositories.entities;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 public class TrackEntity {

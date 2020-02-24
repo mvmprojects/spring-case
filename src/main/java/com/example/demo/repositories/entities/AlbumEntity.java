@@ -1,8 +1,6 @@
 package com.example.demo.repositories.entities;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Entity
 public class AlbumEntity {
@@ -19,16 +17,12 @@ public class AlbumEntity {
     @JoinColumn(name = "ARTIST_ID", nullable = false, referencedColumnName = "ID")
     private ArtistEntity artist;
 
-    @OneToMany(mappedBy = "id")
-    private List<TrackEntity> trackEntityList;
-
     public AlbumEntity() {
     }
 
-    public AlbumEntity(String name, ArtistEntity artist, List<TrackEntity> trackEntityList) {
+    public AlbumEntity(String name, ArtistEntity artist) {
         this.name = name;
         this.artist = artist;
-        this.trackEntityList = trackEntityList;
     }
 
     public Long getId() {
@@ -45,14 +39,6 @@ public class AlbumEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<TrackEntity> getTrackEntityList() {
-        return trackEntityList;
-    }
-
-    public void setTrackEntityList(List<TrackEntity> trackEntityList) {
-        this.trackEntityList = trackEntityList;
     }
 
     public ArtistEntity getArtist() {

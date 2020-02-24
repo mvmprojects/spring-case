@@ -1,68 +1,84 @@
 package com.example.demo.services;
 
-import com.example.demo.repositories.TrackRepository;
 import com.example.demo.repositories.entities.AlbumEntity;
 import com.example.demo.repositories.entities.ArtistEntity;
 import com.example.demo.repositories.entities.TrackEntity;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 
 import static org.hamcrest.Matchers.notNullValue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @SpringBootTest
 public class TrackServiceTests {
-//    @InjectMocks
+
     @Autowired
     private TrackService trackService;
 
     @Autowired
     private AlbumService albumService;
 
-//    @Mock
-//    private TrackRepository trackRepositoryMock;
-//
-//    @BeforeEach
-//    public void setup() {
-//        initMocks(this);
-//    }
+    @Autowired
+    private ArtistService artistService;
 
     @Test
-    public void ShouldSaveTrackEntity() {
+    public void ShouldCreateUpdateDeleteTrack() {
         // given
-        TrackEntity trackRequest = new TrackEntity();
-        trackRequest.setName("trackName");
-        trackRequest.setDuration(3);
+        ArtistEntity artistEntity = new ArtistEntity("artist");
+        ArtistEntity createdArtist = artistService.create(artistEntity);
 
-        AlbumEntity albumEntity = new AlbumEntity();
-        albumEntity.setName("albumName");
-        albumEntity.setId((long) 1);
-        albumService.create(albumEntity);
+        AlbumEntity albumEntity = new AlbumEntity("album", createdArtist);
+        AlbumEntity createdAlbum = albumService.create(albumEntity);
 
-        trackRequest.setAlbum(albumEntity);
+        TrackEntity trackRequest = new TrackEntity("track", createdAlbum,2);
+        trackService.create(trackRequest);
 
-//        when(trackRepositoryMock.save(any(TrackEntity.class))).thenReturn(trackRequest);
         // when
-//        var result =_sut.save(trackRequest);
-//        trackService.create(trackRequest);
-        var result = trackService.findAll();
+        var resultList = trackService.findAll();
+        TrackEntity foundTrack = resultList.get(0);
+        assertThat(foundTrack, is(notNullValue()));
+        assertThat(foundTrack.getName(), is("track"));
+
+        foundTrack.setName("updatedTrack");
+        trackService.update(foundTrack);
+
         // then
-        assertThat(result, is(notNullValue()));
-//        assertThat(result.getName(), is("trackName"));
-//        assertThat(result.getDuration(), is(3));
+        TrackEntity foundTrack2 = trackService.findAll().get(0);
+        assertThat(foundTrack2, is(notNullValue()));
+        assertThat(foundTrack2.getName(), is("updatedTrack"));
+
+        // clean up
+        trackService.delete(foundTrack2.getId());
     }
 
     @Test
     public void findByAlbum_ShouldReturnTracksByAlbum() {
+        // given
+        ArtistEntity artistEntity = new ArtistEntity("artistName");
+        ArtistEntity createdArtist = artistService.create(artistEntity);
 
+        AlbumEntity albumEntity = new AlbumEntity("albumName", createdArtist);
+        AlbumEntity createdAlbum = albumService.create(albumEntity);
+
+        TrackEntity trackRequest = new TrackEntity("trackName", createdAlbum,3);
+
+        // when
+        trackService.create(trackRequest);
+
+        var resultList = trackService.findAll();
+        assertThat(resultList, is(notNullValue()));
+        assertThat(resultList.get(0).getName(), is("trackName"));
+        assertThat(resultList.get(0).getDuration(), is(3));
+
+        // then
+        var resultList2 = trackService.findByAlbum(createdAlbum);
+        assertThat(resultList2, is(notNullValue()));
+        assertThat(resultList2.get(0).getName(), is("trackName"));
+        assertThat(resultList2.get(0).getDuration(), is(3));
+
+        // clean up
+        trackService.delete(resultList.get(0).getId());
     }
 }

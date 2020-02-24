@@ -16,13 +16,15 @@ public class ArtistServiceTests {
     private ArtistService artistService;
 
     @Test
-    public void shouldFindArtistByName() {
+    public void findByName_ShouldReturnArtistByName() {
         // given
         ArtistEntity artistEntity = new ArtistEntity();
         artistEntity.setName("artistName");
         artistService.create(artistEntity);
+
         // when
         var result = artistService.findByName("artistName");
+
         // then
         assertThat(result, is(notNullValue()));
         assertThat(result.getName(), is("artistName"));

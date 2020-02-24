@@ -20,7 +20,7 @@ public class AlbumServiceTests {
     private ArtistService artistService;
 
     @Test
-    public void shouldFindAlbumByArtistId() {
+    public void findByArtistId_ShouldReturnAlbumsByArtistId() {
         // given
         ArtistEntity artistEntity = new ArtistEntity("artistName");
         ArtistEntity created = artistService.create(artistEntity);
