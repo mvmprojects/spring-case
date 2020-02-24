@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.repositories.entities.ArtistEntity;
 import com.example.demo.services.ArtistService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/artist")
 public class ArtistController {
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     private final ArtistService artistService;
 
