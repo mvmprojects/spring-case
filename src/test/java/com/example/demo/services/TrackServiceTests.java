@@ -73,7 +73,7 @@ public class TrackServiceTests {
         assertThat(resultList.get(0).getDuration(), is(3));
 
         // then
-        var resultList2 = trackService.findByAlbum(createdAlbum);
+        var resultList2 = trackService.findByAlbumId(createdAlbum.getId());
         assertThat(resultList2, is(notNullValue()));
         assertThat(resultList2.get(0).getName(), is("trackName"));
         assertThat(resultList2.get(0).getDuration(), is(3));

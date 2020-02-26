@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
-import com.example.demo.repositories.entities.AlbumEntity;
+import com.example.demo.controllers.dtos.TrackDto;
+import com.example.demo.mappers.TrackMapper;
 import com.example.demo.repositories.entities.TrackEntity;
 import com.example.demo.services.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,13 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/track")
 public class TrackController {
-
-    // dto objects not yet implemented; should send and receive dto objects instead of entity objects
 
     private final TrackService trackService;
 
@@ -24,30 +24,44 @@ public class TrackController {
     }
 
     @PostMapping
-    public ResponseEntity<TrackEntity> create(TrackEntity trackEntity) {
-        TrackEntity createdTrack = trackService.create(trackEntity);
-        return new ResponseEntity<>(createdTrack, HttpStatus.CREATED);
+    public ResponseEntity<TrackDto> create(TrackDto trackDto) {
+        TrackEntity createdTrack = trackService.create(TrackMapper.trackDtoToTrackEntity(trackDto));
+        if (createdTrack != null) {
+            TrackDto returnTrack = TrackMapper.trackEntityToTrackDto(createdTrack);
+            return new ResponseEntity<>(returnTrack, HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
     }
 
     @GetMapping
-    public ResponseEntity<List<TrackEntity>> read() {
+    public ResponseEntity<List<TrackDto>> read() {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    @GetMapping("/byalbum")
-    public ResponseEntity<List<TrackEntity>> findByAlbum(AlbumEntity album) {
-        List<TrackEntity> trackList = trackService.findByAlbum(album);
-        return new ResponseEntity<>(trackList, HttpStatus.OK);
+    @GetMapping("/byalbumid")
+    public ResponseEntity<List<TrackDto>> findByAlbumId(long albumId) {
+        List<TrackEntity> trackList = trackService.findByAlbumId(albumId);
+        List<TrackDto> mappedList = new ArrayList<>();
+        for (TrackEntity e : trackList) {
+            mappedList.add(TrackMapper.trackEntityToTrackDto(e));
+        }
+        return new ResponseEntity<>(mappedList, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(TrackEntity trackEntity) {
-        TrackEntity updatedTrack = trackService.update(trackEntity);
-        return new ResponseEntity<>(updatedTrack, HttpStatus.OK);
+    public ResponseEntity update(TrackDto trackDto) {
+        TrackEntity updatedTrack = trackService.update(TrackMapper.trackDtoToTrackEntity(trackDto));
+        if (updatedTrack != null) {
+            TrackDto returnTrack = TrackMapper.trackEntityToTrackDto(updatedTrack);
+            return new ResponseEntity<>(returnTrack, HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
     }
 
     @DeleteMapping("/{id}")
-    public void delete(TrackEntity trackEntity) {
-        trackService.delete(trackEntity.getId());
+    public void delete(TrackDto trackDto) {
+        trackService.delete(trackDto.getId());
     }
 }

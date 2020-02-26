@@ -19,14 +19,14 @@ public class ArtistServiceTests {
     public void findByName_ShouldReturnArtistByName() {
         // given
         ArtistEntity artistEntity = new ArtistEntity();
-        artistEntity.setName("artistName");
+        artistEntity.setName("name");
         artistService.create(artistEntity);
 
         // when
-        var result = artistService.findByName("artistName");
+        var result = artistService.findByName("name");
 
         // then
         assertThat(result, is(notNullValue()));
-        assertThat(result.getName(), is("artistName"));
+        assertThat(result.getName(), is("name"));
     }
 }

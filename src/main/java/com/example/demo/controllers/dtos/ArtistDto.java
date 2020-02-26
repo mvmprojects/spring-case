@@ -1,9 +1,17 @@
 package com.example.demo.controllers.dtos;
 
 public class ArtistDto {
-    // to be used with ModelMapper
+
     private long id;
     private String name;
+
+    public ArtistDto(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public ArtistDto() {
+    }
 
     public long getId() {
         return id;

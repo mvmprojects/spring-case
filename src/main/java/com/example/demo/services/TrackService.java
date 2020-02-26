@@ -29,8 +29,8 @@ public class TrackService {
         return trackRepository.findById(id);
     }
 
-    public List<TrackEntity> findByAlbum(AlbumEntity album) {
-        return trackRepository.findByAlbum(album);
+    public List<TrackEntity> findByAlbumId(long id) {
+        return trackRepository.findByAlbumId(id);
     }
 
     public TrackEntity update(TrackEntity trackEntity) {

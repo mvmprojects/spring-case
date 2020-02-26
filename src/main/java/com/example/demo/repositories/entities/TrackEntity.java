@@ -21,7 +21,6 @@ public class TrackEntity {
     private int duration;
 
     public TrackEntity() {
-
     }
 
     public TrackEntity(String name, AlbumEntity album, int duration) {
@@ -34,7 +33,9 @@ public class TrackEntity {
         return id;
     }
 
-    public void setId(Long id) { this.id = id; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -44,19 +45,19 @@ public class TrackEntity {
         this.name = name;
     }
 
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
     public AlbumEntity getAlbum() {
         return album;
     }
 
     public void setAlbum(AlbumEntity album) {
         this.album = album;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 }

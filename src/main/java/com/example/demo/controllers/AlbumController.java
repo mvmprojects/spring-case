@@ -1,13 +1,15 @@
 package com.example.demo.controllers;
 
+import com.example.demo.controllers.dtos.AlbumDto;
+import com.example.demo.mappers.AlbumMapper;
 import com.example.demo.repositories.entities.AlbumEntity;
-import com.example.demo.repositories.entities.ArtistEntity;
 import com.example.demo.services.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -27,13 +29,17 @@ public class AlbumController {
     }
 
     @GetMapping
-    public ResponseEntity<List<AlbumEntity>> read() { return new ResponseEntity(HttpStatus.NOT_IMPLEMENTED); }
+    public ResponseEntity<List<AlbumDto>> read() { return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED); }
 
-    @GetMapping("/byartist")
-    public ResponseEntity<List<AlbumEntity>> findByArtist(ArtistEntity artist) {
-        List<AlbumEntity> albumList = albumService.findByArtistId(artist.getId());
-        // should use a mapper at this point to convert object to dto before returning
-        return new ResponseEntity(albumList, HttpStatus.OK);
+    @GetMapping("/byartistid")
+    public ResponseEntity<List<AlbumDto>> findByArtistId(long artistId) {
+        List<AlbumEntity> albumList = albumService.findByArtistId(artistId);
+        // use mapper to convert to dto
+        List<AlbumDto> mappedList = new ArrayList<>();
+        for (AlbumEntity e : albumList) {
+            mappedList.add(AlbumMapper.albumEntityToAlbumDto(e));
+        }
+        return new ResponseEntity<>(mappedList, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
