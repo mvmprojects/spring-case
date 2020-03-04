@@ -34,7 +34,6 @@ public class AlbumController {
     @GetMapping("/byartistid")
     public ResponseEntity<List<AlbumDto>> findByArtistId(long artistId) {
         List<AlbumEntity> albumList = albumService.findByArtistId(artistId);
-        // use mapper to convert to dto
         List<AlbumDto> mappedList = new ArrayList<>();
         for (AlbumEntity e : albumList) {
             mappedList.add(AlbumMapper.albumEntityToAlbumDto(e));

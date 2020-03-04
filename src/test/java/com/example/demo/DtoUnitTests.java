@@ -28,18 +28,6 @@ public class DtoUnitTests {
         assertThat(artistDto.getId(), is(artistEntity.getId()));
     }
 
-//    @Test
-//    public void shouldConvertArtistDtoToEntity() {
-//        ArtistDto artistDto = new ArtistDto();
-//        artistDto.setName("artist");
-//        artistDto.setId(1L);
-//
-//        ArtistEntity artistEntity = ArtistMapper.artistDtoToArtistEntity(artistDto);
-//        assertThat(artistEntity, is(notNullValue()));
-//        assertThat(artistEntity.getName(), is(artistDto.getName()));
-//        assertThat(artistEntity.getId(), is(artistDto.getId()));
-//    }
-
     @Test
     public void shouldConvertAlbumEntityToDto() {
         ArtistEntity artist = new ArtistEntity("artist");

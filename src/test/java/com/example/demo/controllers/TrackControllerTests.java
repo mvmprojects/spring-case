@@ -1,7 +1,6 @@
 package com.example.demo.controllers;
 
 import com.example.demo.controllers.dtos.TrackDto;
-import com.example.demo.mappers.TrackMapper;
 import com.example.demo.repositories.entities.AlbumEntity;
 import com.example.demo.repositories.entities.ArtistEntity;
 import com.example.demo.repositories.entities.TrackEntity;
@@ -12,7 +11,6 @@ import org.mockito.ArgumentMatchers;
 import org.springframework.http.HttpStatus;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.BDDMockito.given;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;

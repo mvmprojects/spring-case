@@ -11,7 +11,4 @@ public class ArtistMapper {
 
         return artistDto;
     }
-//    public static ArtistEntity artistDtoToArtistEntity(ArtistDto artistDto) {
-//
-//    }
 }

@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -27,8 +28,16 @@ public class ArtistController {
         return new ResponseEntity(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    @GetMapping
-    public ResponseEntity<List<ArtistDto>> read() { return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED); }
+    @GetMapping("/getlist")
+    public ResponseEntity<ArtistRequestWrapper> getList() {
+        List<ArtistEntity> trackList = artistService.findAll();
+        List<ArtistDto> mappedList = new ArrayList<>();
+        for (ArtistEntity e : trackList) {
+            mappedList.add(ArtistMapper.artistEntityToArtistDto(e));
+        }
+        ArtistRequestWrapper wrapper = new ArtistRequestWrapper(mappedList, mappedList.size());
+        return new ResponseEntity<>(wrapper, HttpStatus.OK);
+    }
 
     @GetMapping("/byname")
     public ResponseEntity<ArtistDto> findByName(String name) {
