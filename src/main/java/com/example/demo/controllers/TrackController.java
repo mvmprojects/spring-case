@@ -50,13 +50,13 @@ public class TrackController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(TrackDto trackDto) {
+    public ResponseEntity<TrackDto> update(TrackDto trackDto) {
         TrackEntity updatedTrack = trackService.update(TrackMapper.trackDtoToTrackEntity(trackDto));
         if (updatedTrack != null) {
             TrackDto returnTrack = TrackMapper.trackEntityToTrackDto(updatedTrack);
             return new ResponseEntity<>(returnTrack, HttpStatus.OK);
         } else {
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
