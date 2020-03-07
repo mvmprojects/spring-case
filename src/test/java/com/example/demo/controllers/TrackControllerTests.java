@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
-import org.mockito.Mock;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
@@ -22,13 +21,11 @@ import static org.mockito.Mockito.mock;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.any;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.mockito.Mockito.when;
 
-// use WebMvcTest and ExtendWith to speed up the test, from >600ms to <100ms
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(TrackController.class) // only load controller layer
+@WebMvcTest(TrackController.class)
 public class TrackControllerTests {
 
     private TrackController trackController;
@@ -60,8 +57,6 @@ public class TrackControllerTests {
 
         albumEntity.setArtist(artistEntity);
         trackEntity.setAlbum(albumEntity);
-//        given(mapperMock.map(any(TrackDto.class), TrackEntity.class)).willReturn(trackEntity);
-//        given(mapperMock.map(any(TrackEntity.class), TrackDto.class)).willReturn(trackDto);
 
         when(trackService.create(ArgumentMatchers.any())).thenReturn(trackEntity);
 

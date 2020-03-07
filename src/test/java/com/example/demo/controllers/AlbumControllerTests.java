@@ -1,6 +1,5 @@
 package com.example.demo.controllers;
 
-import com.example.demo.controllers.dtos.AlbumDto;
 import com.example.demo.controllers.dtos.ArtistDto;
 import com.example.demo.repositories.entities.AlbumEntity;
 import com.example.demo.repositories.entities.ArtistEntity;
@@ -11,7 +10,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,14 +21,13 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.springframework.http.HttpStatus.OK;
 
-// use WebMvcTest and ExtendWith to speed up the test, from 700ms to 100ms
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(AlbumController.class) // only load controller layer
+@WebMvcTest(AlbumController.class)
 public class AlbumControllerTests {
 
     private AlbumController albumController;
 
-    @MockBean // specify MockBean because we only load controller layer
+    @MockBean
     private AlbumService albumService;
 
     @BeforeEach
@@ -54,7 +51,6 @@ public class AlbumControllerTests {
 
         List<AlbumEntity> albumEntityList = Arrays.asList(album, album);
         given(albumService.findByArtistId(anyLong())).willReturn(albumEntityList);
-//        given(mapperMock.map(any(AlbumEntity.class), AlbumDto.class)).willReturn(albumDto);
 
         // when
         var resultList = albumController.findByArtistId(1L);
