@@ -7,8 +7,13 @@ import com.example.demo.repositories.entities.TrackEntity;
 import com.example.demo.services.TrackService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
+import org.mockito.Mock;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.mockito.Mockito.mock;
 
@@ -18,10 +23,14 @@ import static org.hamcrest.Matchers.any;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.mockito.Mockito.when;
 
+// use WebMvcTest and ExtendWith to speed up the test, from >600ms to <100ms
+@ExtendWith(SpringExtension.class)
+@WebMvcTest(TrackController.class) // only load controller layer
 public class TrackControllerTests {
 
     private TrackController trackController;
 
+    @MockBean
     private TrackService trackService;
 
     @BeforeEach

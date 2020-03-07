@@ -40,4 +40,6 @@ public class TrackService {
     public void delete(Long id) {
         trackRepository.deleteById(id);
     }
+
+    public void deleteAll() { trackRepository.deleteAll();}
 }

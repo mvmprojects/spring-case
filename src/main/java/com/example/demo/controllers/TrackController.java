@@ -39,8 +39,8 @@ public class TrackController {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
-    @GetMapping("/byalbumid")
-    public ResponseEntity<List<TrackDto>> findByAlbumId(long albumId) {
+    @GetMapping("/byalbumid/{albumId}")
+    public ResponseEntity<List<TrackDto>> findByAlbumId(@PathVariable Long albumId) {
         List<TrackEntity> trackList = trackService.findByAlbumId(albumId);
         List<TrackDto> mappedList = new ArrayList<>();
         for (TrackEntity e : trackList) {

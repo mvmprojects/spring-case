@@ -31,8 +31,8 @@ public class AlbumController {
     @GetMapping
     public ResponseEntity<List<AlbumDto>> read() { return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED); }
 
-    @GetMapping("/byartistid")
-    public ResponseEntity<List<AlbumDto>> findByArtistId(long artistId) {
+    @GetMapping("/byartistid/{artistId}")
+    public ResponseEntity<List<AlbumDto>> findByArtistId(@PathVariable Long artistId) {
         List<AlbumEntity> albumList = albumService.findByArtistId(artistId);
         List<AlbumDto> mappedList = new ArrayList<>();
         for (AlbumEntity e : albumList) {

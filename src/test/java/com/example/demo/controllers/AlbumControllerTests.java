@@ -7,6 +7,11 @@ import com.example.demo.repositories.entities.ArtistEntity;
 import com.example.demo.services.AlbumService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,10 +23,14 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.springframework.http.HttpStatus.OK;
 
+// use WebMvcTest and ExtendWith to speed up the test, from 700ms to 100ms
+@ExtendWith(SpringExtension.class)
+@WebMvcTest(AlbumController.class) // only load controller layer
 public class AlbumControllerTests {
 
     private AlbumController albumController;
 
+    @MockBean // specify MockBean because we only load controller layer
     private AlbumService albumService;
 
     @BeforeEach

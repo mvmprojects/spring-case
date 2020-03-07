@@ -4,6 +4,10 @@ import com.example.demo.repositories.entities.ArtistEntity;
 import com.example.demo.services.ArtistService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -15,10 +19,14 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.springframework.http.HttpStatus.OK;
 
+// use WebMvcTest and ExtendWith to speed up the test, from >600ms to <100ms
+@ExtendWith(SpringExtension.class)
+@WebMvcTest(ArtistController.class) // only load controller layer
 public class ArtistControllerTests {
 
     private ArtistController artistController;
 
+    @MockBean // because we only load controller layer
     private ArtistService artistService;
 
     @BeforeEach

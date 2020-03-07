@@ -39,8 +39,8 @@ public class ArtistController {
         return new ResponseEntity<>(wrapper, HttpStatus.OK);
     }
 
-    @GetMapping("/byname")
-    public ResponseEntity<ArtistDto> findByName(String name) {
+    @GetMapping("/byname/{name}")
+    public ResponseEntity<ArtistDto> findByName(@PathVariable String name) {
         ArtistEntity artistEntity = artistService.findByName(name);
         if (artistEntity != null) {
             // use mapper to convert to dto

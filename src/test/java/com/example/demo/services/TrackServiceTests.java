@@ -25,6 +25,8 @@ public class TrackServiceTests {
 
     @Test
     public void ShouldCreateUpdateDeleteTrack() {
+        trackService.deleteAll(); //
+
         // given
         ArtistEntity artistEntity = new ArtistEntity("artist");
         ArtistEntity createdArtist = artistService.create(artistEntity);
@@ -55,6 +57,8 @@ public class TrackServiceTests {
 
     @Test
     public void findByAlbum_ShouldReturnTracksByAlbum() {
+        trackService.deleteAll();
+
         // given
         ArtistEntity artistEntity = new ArtistEntity("artistName");
         ArtistEntity createdArtist = artistService.create(artistEntity);
