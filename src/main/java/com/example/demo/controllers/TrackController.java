@@ -61,7 +61,7 @@ public class TrackController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(TrackDto trackDto) {
-        trackService.delete(trackDto.getId());
+    public void delete(@PathVariable Long id) {
+        trackService.delete(id);
     }
 }

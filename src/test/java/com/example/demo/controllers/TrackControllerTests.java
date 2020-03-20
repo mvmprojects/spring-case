@@ -176,7 +176,7 @@ public class TrackControllerTests {
 
         assertThat(result, is(notNullValue()));
 
-        trackController.delete(trackDto);
+        trackController.delete(trackDto.getId());
 
         var getList = trackController.findByAlbumId(10L);
 
