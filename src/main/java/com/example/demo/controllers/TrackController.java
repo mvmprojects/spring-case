@@ -24,7 +24,7 @@ public class TrackController {
     }
 
     @PostMapping
-    public ResponseEntity<TrackDto> create(TrackDto trackDto) {
+    public ResponseEntity<TrackDto> create(@RequestBody TrackDto trackDto) {
         TrackEntity createdTrack = trackService.create(TrackMapper.trackDtoToTrackEntity(trackDto));
         if (createdTrack != null) {
             TrackDto returnTrack = TrackMapper.trackEntityToTrackDto(createdTrack);
