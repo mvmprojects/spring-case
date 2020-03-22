@@ -49,8 +49,8 @@ public class TrackController {
         return new ResponseEntity<>(mappedList, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<TrackDto> update(TrackDto trackDto) {
+    @PutMapping//("/{id}")
+    public ResponseEntity<TrackDto> update(@RequestBody TrackDto trackDto) {
         TrackEntity updatedTrack = trackService.update(TrackMapper.trackDtoToTrackEntity(trackDto));
         if (updatedTrack != null) {
             TrackDto returnTrack = TrackMapper.trackEntityToTrackDto(updatedTrack);
